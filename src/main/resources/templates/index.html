@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I.R.I.S.</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+    <div class="nav-container">
+        <div class="logo-title">
+            <a th:href="@{/}">
+                <img th:src="@{/IRIS_logo.png}" alt="Logo" class="logo">
+            </a>
+            <div class="header-text">
+                <p>I.R.I.S.</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <div th:if="${!isLoggedIn}">
+                <a th:href="@{/login-real}" class="button">Login</a>
+            </div>
+            <div th:if="${isLoggedIn} and ${role.contains('ADMIN')}">
+                <a th:href="@{/admin}" class="button">Admin Panel</a>
+            </div>
+            <div th:if="${isLoggedIn}">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="button">Logout</button>
+                </form>
+            </div>
+            <div>
+                <a th:href="@{/blog}" class="button">Blog</a>
+            </div>
+            <div th:if="${isLoggedIn} and ${role.contains('ADMIN')}">
+                <a th:href="@{/wiki}" class="button">Wiki</a>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1>Willkommen bei I.R.I.S.</h1>
+        <p>Unser <a th:href="@{https://discord.gg/R7befRbN7G}">Discord</a></p>
+        <div class="cta-buttons">
+            <a href="/blog" class="button primary">Unser Blog</a>
+            <a href="/contact" class="button secondary">Kontakt</a>
+        </div>
+    </section>
+
+    <!-- Feature Section -->
+    <section class="feature-grid">
+        <div class="feature-card">
+            <div class="section-image">
+                <img th:src="@{/polaris_closeup.jpg}" alt="Joint Forces">
+            </div>
+            <h3>Joint Forces</h3>
+            <p>Wir machen alle zwei Monate mindestens ein Joint Forces Training um die zusammenarbeit im Team zu stärken.</p>
+        </div>
+        <div class="feature-card">
+            <div class="section-image">
+                <img th:src="@{/medic_pic.jpg}" alt="Medical">
+            </div>
+            <h3>Medical</h3>
+            <p>Von Erstversorgung bis Lazarett - unser Medic-Team sorgt für realistische Einsätze.</p>
+        </div>
+        <div class="feature-card">
+            <div class="section-image">
+                <img th:src="@{/starlancer_logistik.jpg}" alt="Logistik">
+            </div>
+            <h3>Logistik</h3>
+            <p>Ob Nachladen von Torpedos oder auch belieferung von Rohstoffen, unsere Logistik Truppe macht's.</p>
+        </div>
+    </section>
+
+    <section class="about-section section-with-image">
+        <div class="section-image">
+            <img th:src="@{/ships_multicrew.jpg}" alt="Multicrew">
+        </div>
+        <div class="section-text">
+            <h2>Multicrew</h2>
+            <p>Wir führen regelmäßige Trainingseinheiten auf den großen Schiffen durch, um eine effektive Mannschaft zu erhalten damit wir auch in größeren Gefechten bestehen können.</p>
+        </div>
+    </section>
+
+    <section class="services-section section-with-image">
+        <div class="section-text">
+            <h2>Salvage</h2>
+            <p>Damit wir unsere finanzielle Unabhängigkeit behalten können, sind wir durchgehend mit unserer Flotte an Salvageschiffen unterwegs um Credits zu verdienen.</p>
+        </div>
+        <div class="section-image">
+            <img th:src="@{/reclaimer_salvage.png}" alt="Salvage">
+        </div>
+    </section>
+
+    <section class="contact-preview section-with-image">
+        <div class="section-image">
+            <img th:src="@{/sillouets_fps.jpg}" alt="FPS">
+        </div>
+        <div class="section-text">
+            <h2>FPS</h2>
+            <p>Einer unserer Schwerpunkte im Spiel. Wir arbeiten als effektive Bodentruppe mit anderen Truppenteilen  zusammen um unser Ziel zu erreichen.</p>
+        </div>
+    </section>
+</main>
+
+<footer>
+</footer>
+<div class="contact-box">
+    <a th:href="@{/contact}" class="button">Kontakt</a>
+</div>
+</body>
+</html>

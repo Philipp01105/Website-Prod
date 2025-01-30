@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I.R.I.S. Blog</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+    <div class="nav-container">
+        <div class="logo-title">
+            <a th:href="@{/}">
+                <img th:src="@{/IRIS_logo.png}" alt="Logo" class="logo">
+            </a>
+            <div class="header-text">
+                <p>I.R.I.S.</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <div th:if="${!isLoggedIn}">
+                <a th:href="@{/login-real}" class="button">Login</a>
+            </div>
+            <div th:if="${isLoggedIn} and ${role.contains('ADMIN')}">
+                <a th:href="@{/admin}" class="button">Admin Panel</a>
+            </div>
+            <div th:if="${isLoggedIn}">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="button">Logout</button>
+                </form>
+            </div>
+            <div th:if="${isLoggedIn} and ${role.contains('ADMIN')}">
+                <a th:href="@{/wiki}" class="button">Wiki</a>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <section>
+        <h2>Willkommen auf unserem Blog</h2>
+        <p>Hier steht alles, was in letzter Zeit passiert ist.</p>
+    </section>
+    <section th:each="section : ${sections}" class="section">
+        <h2 th:text="${section.title}"></h2>
+        <p th:utext="${section.content}" style ="white-space: pre-wrap;"></p>
+        <small th:text="${#temporals.format(section.timestamp, 'dd.MM.yyyy')}" class="timestamp"></small>
+    </section>
+</main>
+<footer>
+</footer>
+<div class="contact-box">
+    <a th:href="@{/contact}" class="button">Contact</a>
+</div>
+</body>
+</html>

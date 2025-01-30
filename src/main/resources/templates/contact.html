@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+    <div class="nav-container">
+        <div class="logo-title">
+            <a th:href="@{/}">
+                <img th:src="@{/IRIS_logo.png}" alt="Logo" class="logo">
+            </a>
+            <div class="header-text">
+                <p>I.R.I.S.</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <div th:if="${!isLoggedIn}">
+                <a th:href="@{/login-real}" class="button">Login</a>
+            </div>
+            <div th:if="${isLoggedIn} and ${role.contains('ADMIN')}">
+                <a th:href="@{/admin}" class="button">Admin Panel</a>
+            </div>
+            <div th:if="${isLoggedIn}">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="button">Logout</button>
+                </form>
+            </div>
+            <div>
+                <a th:href="@{/blog}" class="button">Blog</a>
+            </div>
+            <div th:if="${isLoggedIn} and ${role.contains('ADMIN')}">
+                <a th:href="@{/wiki}" class="button">Wiki</a>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <section>
+        <h2>Informationen:</h2>
+        <p>Halte dich an die gleichen Regeln wie auf dem Discord server. Falls du eine Beschwerde Anonym schicken möchtest dann gib in "Name" Anonym an.</p>
+    </section>
+    <section>
+        <h2>Kontaktiere uns!</h2>
+        <form action="/contact" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Discord username" required>
+            <label for="message">Nachricht:</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit" class="submit-button">Abschicken</button>
+        </form>
+    </section>
+</main>
+<footer>
+</footer>
+</body>
+</html>

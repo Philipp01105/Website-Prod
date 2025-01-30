@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/register.js" defer></script>
+</head>
+<body>
+<header>
+    <div class="logo-title">
+        <a th:href="@{/}">
+            <img th:src="@{/IRIS_logo.png}" alt="Logo" class="logo">
+        </a>
+        <div class="header-text">
+            <p>Welcome to Our Website</p>
+        </div>
+    </div>
+</header>
+<main>
+    <section>
+        <h2>Register</h2>
+        <form action="/api/register" id="registerForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit" class="submit-button">Register</button>
+        </form>
+    </section>
+</main>
+<footer>
+</footer>
+</body>
+</html>

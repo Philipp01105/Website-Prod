@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Wiki Page</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+    <h1>Add New Wiki Page</h1>
+</header>
+<main>
+    <section>
+        <form th:action="@{/admin/add-wiki}" method="post">
+            <label>
+                <input type="text" name="title" placeholder="Title" required>
+            </label>
+            <br>
+            <label>
+                <textarea name="content" rows="4" cols="50" placeholder="Text" required></textarea>
+            </label>
+            <br>
+            <label>
+                <input name="url">
+                    <option value="">Wähle ein Bild aus</option>
+                    <!-- Dynamisch generierte Optionen -->
+                    <option th:each="image : ${images}"
+                            th:value="${image}"
+                            th:text="${image}">
+                    </option>
+            </label>
+            <br>
+            <button type="submit" class="submit-button">Add Wiki entry</button>
+        </form>
+    </section>
+</main>
+</body>
+</html>
