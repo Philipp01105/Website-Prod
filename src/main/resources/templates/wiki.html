@@ -87,7 +87,8 @@
     <div th:each="wiki : ${wikis}" th:id="'modal-' + ${wiki.id}" class="modal">
         <div class="modal-content">
             <span class="close-button" th:onclick="'closeModal(' + ${wiki.id} + ')'">×</span>
-            <img th:src="${wiki.picPath != null ? wiki.picPath : 'https://picsum.photos/200/200'}" alt="Wiki Image" style="max-width: 100%;">
+            <img th:src="${wiki.picPath != null ? wiki.picPath : 'https://picsum.photos/200/200'}" alt="Wiki Image"
+                 style="max-width: 100%; max-height: 512px; display: block; margin: auto;"">
             <h2 th:text="${wiki.wikiname}"></h2>
             <p th:utext="${wiki.content}"></p>
         </div>

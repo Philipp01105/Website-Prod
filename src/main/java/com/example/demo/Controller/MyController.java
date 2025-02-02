@@ -188,6 +188,7 @@ public class MyController {
         MarkdownConverter markdownConverter = new MarkdownConverter();
         content = markdownConverter.convertToHtml(content);
         wiki.setContent(content);
+        if(url.isEmpty())url = "/original_black@2x.png";
         wiki.setPicPath(url);
         wikiRepository.save(wiki);
         return new ModelAndView("redirect:/admin");
