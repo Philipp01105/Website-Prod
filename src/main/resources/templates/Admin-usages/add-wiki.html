@@ -30,7 +30,8 @@
                     <option th:each="image : ${images}" th:value="@{/{image}(image=${image})}" th:text="${image}"></option>
                 </select>
 
-                <img id="image-preview" src="" alt="Vorschau" style="display: none; width: 200px; height: 200px; border: 1px solid #ccc; margin-top: 10px;">
+                <img id="image-preview" src="" alt="Vorschau"
+                 style="display: none; width: 100%; height: 100%; border: 1px solid #ccc; margin-top: 10px;">
 
                 <script>
                     document.getElementById("image-select").addEventListener("change", function() {
