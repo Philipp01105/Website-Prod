@@ -43,3 +43,6 @@ logo_parts/
 
 ### jdk folder ###
 jdk-23.0.2/
+
+### certificate ###
+*.p12
