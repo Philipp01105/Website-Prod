@@ -23,13 +23,27 @@
             </label>
             <br>
             <label>
-                <input name="url">
+                <!-- das untere und auskommetierte input wurde in ein select (dropdown) geändert -->
+                <!-- <input name="url"> -->
+                <select id="image-select" name="url">
                     <option value="">Wähle ein Bild aus</option>
-                    <!-- Dynamisch generierte Optionen -->
-                    <option th:each="image : ${images}"
-                            th:value="${image}"
-                            th:text="${image}">
-                    </option>
+                    <option th:each="image : ${images}" th:value="@{/{image}(image=${image})}" th:text="${image}"></option>
+                </select>
+
+                <img id="image-preview" src="" alt="Vorschau"
+                 style="display: none; width: 100%; height: 100%; border: 1px solid #ccc; margin-top: 10px;">
+
+                <script>
+                    document.getElementById("image-select").addEventListener("change", function() {
+                    let preview = document.getElementById("image-preview");
+                    if (this.value) {
+                        preview.src = this.value;
+                        preview.style.display = "block";
+                    } else {
+                        preview.style.display = "none";
+                    }
+                });
+                </script>
             </label>
             <br>
             <button type="submit" class="submit-button">Add Wiki entry</button>

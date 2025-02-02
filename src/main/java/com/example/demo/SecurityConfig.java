@@ -32,7 +32,10 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/", "/contact", "/login-real", "/style.css", "/IRIS_logo.png", "/blog", "/medic_pic.jpg", "/polaris_closeup.jpg", "/starlancer_logistik.jpg", "/reclaimer_salvage.png", "/sillouets_fps.jpg", "/ships_multicrew.jpg", "/favicon.png").permitAll()
+                        .requestMatchers("/", "/contact", "/login-real", "/style.css",
+                        "/IRIS_logo.png", "/blog", "/medic_pic.jpg", "/polaris_closeup.jpg",
+                        "/starlancer_logistik.jpg", "/reclaimer_salvage.png", "/sillouets_fps.jpg",
+                        "/ships_multicrew.jpg", "/favicon.png").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/Wiki", "/register", "/register.js", "/api/register").hasRole("ADMIN")
                         .anyRequest().authenticated())
@@ -62,4 +65,3 @@ public class SecurityConfig {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 }
-
