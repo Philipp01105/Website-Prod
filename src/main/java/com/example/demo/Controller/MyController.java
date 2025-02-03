@@ -43,14 +43,14 @@ public class MyController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/blog")
-    public ModelAndView blog(Model model) {
-        return secureSiteGet(model, "blog", "blogs", blogRepository, Blog.class);
-    }
-
     @GetMapping("/")
     public ModelAndView welcome(Model model) {
         return secureSiteGet(model, "index", "", null, null);
+    }
+
+    @GetMapping("/blog")
+    public ModelAndView blog(Model model) {
+        return secureSiteGet(model, "blog", "blogs", blogRepository, Blog.class);
     }
 
     @GetMapping("/wiki")
@@ -59,56 +59,28 @@ public class MyController {
     }
 
     @GetMapping("/login-real")
-    public ModelAndView login() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login-own");
-        return modelAndView;
+    public ModelAndView login(Model model) {
+        return secureSiteGet(model, "login", null, null, null);
     }
 
     @GetMapping("/contact")
     public ModelAndView contact(Model model) {
-        return secureSiteGet(model, "contact", "", null, null);
-    }
-
-    @PostMapping("/contact")
-    @ResponseBody
-    public String handleContact(
-            @RequestParam("name") String name,
-            @RequestParam("message") String message) {
-        Contact contact = new Contact();
-        contact.setName(name);
-        contact.setContent(message);
-        contactRepository.save(contact);
-        return "<html><body><script>alert('Danke für dein Feedback, " + name + "!'); window.location.href='/contact';</script></body></html>";
+        return secureSiteGet(model, "contact", null, null, null);
     }
 
     @GetMapping("/register")
-    public ModelAndView register() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("register");
-        return modelAndView;
-    }
-
-    @PostMapping("/register")
-    public ModelAndView handleRegister(
-            @RequestParam("username") String username,
-            @RequestParam("password") String password) {
-        System.out.println("Username: " + username + ", Password: " + password);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/login-own");
-        return modelAndView;
+    public ModelAndView register(Model model) {
+        return secureSiteGet(model, "register", null, null, null);
     }
 
     @GetMapping("/admin")
     public ModelAndView admin(Model model) {
-        List<Blog> blogs = blogRepository.findAll();
-        model.addAttribute("blogs", blogs);
-        return new ModelAndView("Admin-usages/admin");
+        return secureSiteGet(model, "Admin-usages/admin", null, null, null);
     }
 
     @GetMapping("/admin/add-blog")
-    public ModelAndView addSectionPage() {
-        return new ModelAndView("Admin-usages/add-blog");
+    public ModelAndView addSectionPage(Model model) {
+        return secureSiteGet(model, "Admin-usages/add-blog", null, null, null);
     }
 
     @GetMapping("/admin/add-wiki")
@@ -123,6 +95,40 @@ public class MyController {
 
         model.addAttribute("images", images);
         return new ModelAndView("Admin-usages/add-wiki");
+    }
+
+    @GetMapping("/admin/manage-roles")
+    public ModelAndView manageRoles(Model model) {
+        return secureSiteGet(model, "Admin-usages/manage-roles", "users", userRepository, User.class);
+    }
+
+    @GetMapping("/admin/reset-password")
+    public ModelAndView resetPassword(Model model) {
+        return secureSiteGet(model, "Admin-usages/reset-password", null, null, null);
+    }
+
+    @GetMapping("/admin/reports")
+    public ModelAndView reports(Model model) {
+        return secureSiteGet(model, "Admin-usages/reports", "contacts", contactRepository, Contact.class);
+    }
+
+    @GetMapping("/error")
+    public ModelAndView error() {
+        return new ModelAndView("error");
+    }
+
+/*---------------------------------Post Methods---------------------------------*/
+
+    @PostMapping("/contact")
+    @ResponseBody
+    public String handleContact(
+            @RequestParam("name") String name,
+            @RequestParam("message") String message) {
+        Contact contact = new Contact();
+        contact.setName(name);
+        contact.setContent(message);
+        contactRepository.save(contact);
+        return "<html><body><script>alert('Danke für dein Feedback, " + name + "!'); window.location.href='/contact';</script></body></html>";
     }
 
     @PostMapping("/admin/add-blog")
@@ -150,13 +156,6 @@ public class MyController {
         return new ModelAndView("redirect:/admin");
     }
 
-    @GetMapping("/admin/manage-roles")
-    public ModelAndView manageRoles(Model model) {
-        List<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
-        return new ModelAndView("Admin-usages/manage-roles");
-    }
-
     @PostMapping("/admin/manage-roles")
     public ModelAndView handleManageRoles(
             @RequestParam("username") String username,
@@ -167,10 +166,6 @@ public class MyController {
             userRepository.save(user);
         }
         return new ModelAndView("redirect:/admin");
-    }
-    @GetMapping("/admin/reset-password")
-    public ModelAndView resetPassword(Model model) {
-        return new ModelAndView("Admin-usages/reset-password");
     }
 
     @PostMapping("/admin/reset-password")
@@ -185,15 +180,7 @@ public class MyController {
         return new ModelAndView("redirect:/admin");
     }
 
-    @GetMapping("/admin/reports")
-    public ModelAndView reports(Model model) {
-        return secureSiteGet(model, "Admin-usages/reports", "contacts", contactRepository, Contact.class);
-    }
-
-    @GetMapping("/error")
-    public ModelAndView error() {
-        return new ModelAndView("error");
-    }
+/*---------------------------------Helper Methods---------------------------------*/
 
     public String getCurrentUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -216,7 +203,7 @@ public class MyController {
         assert authentication != null;
         model.addAttribute("role", authentication.getAuthorities().toString());
 
-        if(repository != null && entityClass != null) {
+        if(repository != null && entityClass != null && entityListName != null) {
             List<T> entityList = repository.findAll();
 
             if (Timestamped.class.isAssignableFrom(entityClass)) {
