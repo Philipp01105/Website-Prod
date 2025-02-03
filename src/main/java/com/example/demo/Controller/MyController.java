@@ -1,18 +1,15 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Entities.Contact;
-import com.example.demo.Entities.Section;
-import com.example.demo.Entities.Wiki;
+import com.example.demo.Entities.*;
 import com.example.demo.Repositories.ContactRepository;
-import com.example.demo.Repositories.SectionRepository;
+import com.example.demo.Repositories.BlogRepository;
 import com.example.demo.Repositories.UserRepository;
-import com.example.demo.Entities.User;
 import com.example.demo.Repositories.WikiRepository;
 import com.example.demo.Services.MarkdownConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,18 +17,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class MyController {
 
     @Autowired
-    private SectionRepository sectionRepository;
+    private BlogRepository blogRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -50,47 +45,17 @@ public class MyController {
 
     @GetMapping("/blog")
     public ModelAndView blog(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !authentication.getPrincipal().equals("anonymousUser");
-        model.addAttribute("isLoggedIn", isLoggedIn);
-        assert authentication != null;
-        model.addAttribute("role", authentication.getAuthorities().toString());
-        List<Section> sections = sectionRepository.findAll();
-        sections.sort((s1, s2) -> s2.getTimestamp().compareTo(s1.getTimestamp()));
-        model.addAttribute("sections", sections);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("blog");
-        return modelAndView;
+        return secureSiteGet(model, "blog", "blogs", blogRepository, Blog.class);
     }
 
     @GetMapping("/")
     public ModelAndView welcome(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !authentication.getPrincipal().equals("anonymousUser");
-        model.addAttribute("isLoggedIn", isLoggedIn);
-        assert authentication != null;
-        model.addAttribute("role", authentication.getAuthorities().toString());
-        List<Section> sections = sectionRepository.findAll();
-        sections.sort((s1, s2) -> s2.getTimestamp().compareTo(s1.getTimestamp()));
-        model.addAttribute("sections", sections);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index");
-        return modelAndView;
+        return secureSiteGet(model, "index", "", null, null);
     }
 
     @GetMapping("/wiki")
     public ModelAndView Wiki(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !authentication.getPrincipal().equals("anonymousUser");
-        model.addAttribute("isLoggedIn", isLoggedIn);
-        assert authentication != null;
-        model.addAttribute("role", authentication.getAuthorities().toString());
-        List<Wiki> wiki = wikiRepository.findAll();
-        wiki.sort((s1, s2) -> s2.getId().compareTo(s1.getId()));
-        model.addAttribute("wikis", wiki);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("wiki");
-        return modelAndView;
+        return secureSiteGet(model, "wiki", "wikis", wikiRepository, Wiki.class);
     }
 
     @GetMapping("/login-real")
@@ -102,16 +67,7 @@ public class MyController {
 
     @GetMapping("/contact")
     public ModelAndView contact(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean isLoggedIn = authentication != null && authentication.isAuthenticated()
-                && !authentication.getPrincipal().equals("anonymousUser");
-        model.addAttribute("isLoggedIn", isLoggedIn);
-        if (isLoggedIn) {
-            model.addAttribute("role", authentication.getAuthorities().toString());
-        }
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("contact");
-        return modelAndView;
+        return secureSiteGet(model, "contact", "", null, null);
     }
 
     @PostMapping("/contact")
@@ -145,14 +101,14 @@ public class MyController {
 
     @GetMapping("/admin")
     public ModelAndView admin(Model model) {
-        List<Section> sections = sectionRepository.findAll();
-        model.addAttribute("sections", sections);
+        List<Blog> blogs = blogRepository.findAll();
+        model.addAttribute("blogs", blogs);
         return new ModelAndView("Admin-usages/admin");
     }
 
-    @GetMapping("/admin/add-section")
+    @GetMapping("/admin/add-blog")
     public ModelAndView addSectionPage() {
-        return new ModelAndView("Admin-usages/add-section");
+        return new ModelAndView("Admin-usages/add-blog");
     }
 
     @GetMapping("/admin/add-wiki")
@@ -169,15 +125,15 @@ public class MyController {
         return new ModelAndView("Admin-usages/add-wiki");
     }
 
-    @PostMapping("/admin/add-section")
+    @PostMapping("/admin/add-blog")
     public ModelAndView addSection(@RequestParam("title") String title, @RequestParam("content") String content) {
-        Section section = new Section();
+        Blog section = new Blog();
         section.setTitle(title);
         MarkdownConverter markdownConverter = new MarkdownConverter();
         content = markdownConverter.convertToHtml(content);
         section.setContent(content);
         section.setTimestamp(LocalDateTime.now());
-        sectionRepository.save(section);
+        blogRepository.save(section);
         return new ModelAndView("redirect:/admin");
     }
 
@@ -231,13 +187,7 @@ public class MyController {
 
     @GetMapping("/admin/reports")
     public ModelAndView reports(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !authentication.getPrincipal().equals("anonymousUser");
-        model.addAttribute("isLoggedIn", isLoggedIn);
-        List<Contact> contacts = contactRepository.findAll();
-        contacts.sort((s1, s2) -> s2.getId().compareTo(s1.getId()));
-        model.addAttribute("contacts", contacts);
-        return new ModelAndView("Admin-usages/reports");
+        return secureSiteGet(model, "Admin-usages/reports", "contacts", contactRepository, Contact.class);
     }
 
     @GetMapping("/error")
@@ -251,5 +201,37 @@ public class MyController {
             return userDetails.getUsername();
         }
         return null;
+    }
+
+    public <T> ModelAndView secureSiteGet(
+            Model model,
+            String viewPath,
+            String entityListName,
+            JpaRepository<T, Long> repository,
+            Class<T> entityClass) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !authentication.getPrincipal().equals("anonymousUser");
+        model.addAttribute("isLoggedIn", isLoggedIn);
+        assert authentication != null;
+        model.addAttribute("role", authentication.getAuthorities().toString());
+
+        if(repository != null && entityClass != null) {
+            List<T> entityList = repository.findAll();
+
+            if (Timestamped.class.isAssignableFrom(entityClass)) {
+                entityList.sort((s1, s2) -> ((Timestamped)s2).getTimestamp()
+                        .compareTo(((Timestamped)s1).getTimestamp()));
+            } else if (Identifiable.class.isAssignableFrom(entityClass)) {
+                entityList.sort((s1, s2) -> ((Identifiable)s2).getId()
+                        .compareTo(((Identifiable)s1).getId()));
+            }
+
+            model.addAttribute(entityListName, entityList);
+        }
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(viewPath);
+        return modelAndView;
     }
 }
