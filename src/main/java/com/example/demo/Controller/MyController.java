@@ -23,8 +23,6 @@ public class MyController {
     @Autowired
     private ContactRepository contactRepository;
 
-
-
     @GetMapping("/")
     public ModelAndView welcome(Model model) {
         return secureSiteGet(model, "index", "", null, null);
@@ -55,10 +53,10 @@ public class MyController {
         return secureSiteGet(model, "register", null, null, null);
     }
 
-    @GetMapping("/error")
+    /*@GetMapping("/error")
     public ModelAndView error(Model model) {
         return secureSiteGet(model, "error", null, null, null);
-    }
+    }*/
 
 /*---------------------------------Post Methods---------------------------------*/
 

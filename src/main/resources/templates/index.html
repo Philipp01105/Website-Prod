@@ -23,7 +23,7 @@
                 <a th:href="@{/login-real}" class="button">Login</a>
             </div>
             <div th:if="${isLoggedIn} and ${role.contains('ADMIN')}">
-                <a th:href="@{/admin}" class="button">Admin Panel</a>
+                <a th:href="@{/admin/}" class="button">Admin Panel</a>
             </div>
             <div th:if="${isLoggedIn}">
                 <form th:action="@{/logout}" method="post">

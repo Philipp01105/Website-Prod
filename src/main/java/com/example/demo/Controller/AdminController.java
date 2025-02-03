@@ -57,7 +57,7 @@ public class AdminController {
         return secureSiteGet(model, "Admin-usages/add-blog", null, null, null);
     }
 
-    @GetMapping("/admin/add-wiki")
+    @GetMapping("/add-wiki")
     public ModelAndView addWikiPage(Model model) throws IOException {
         Resource[] resources = resourcePatternResolver.getResources("classpath:static/*.*");
         List<String> images = Arrays.stream(resources)
@@ -71,17 +71,17 @@ public class AdminController {
         return new ModelAndView("Admin-usages/add-wiki");
     }
 
-    @GetMapping("/admin/manage-roles")
+    @GetMapping("/manage-roles")
     public ModelAndView manageRoles(Model model) {
         return secureSiteGet(model, "Admin-usages/manage-roles", "users", userRepository, User.class);
     }
 
-    @GetMapping("/admin/reset-password")
+    @GetMapping("/reset-password")
     public ModelAndView resetPassword(Model model) {
         return secureSiteGet(model, "Admin-usages/reset-password", null, null, null);
     }
 
-    @GetMapping("/admin/reports")
+    @GetMapping("/reports")
     public ModelAndView reports(Model model) {
         return secureSiteGet(model, "Admin-usages/reports", "contacts", contactRepository, Contact.class);
     }
