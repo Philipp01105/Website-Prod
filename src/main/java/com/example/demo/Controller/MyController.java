@@ -25,7 +25,7 @@ public class MyController {
 
     @GetMapping("/")
     public ModelAndView welcome(Model model) {
-        return secureSiteGet(model, "index", "", null, null);
+        return secureSiteGet(model, "index", null, null, null);
     }
 
     @GetMapping("/blog")
@@ -38,7 +38,7 @@ public class MyController {
         return secureSiteGet(model, "wiki", "wikis", wikiRepository, Wiki.class);
     }
 
-    @GetMapping("/login-real")
+    @GetMapping("/login")
     public ModelAndView login(Model model) {
         return secureSiteGet(model, "login", null, null, null);
     }

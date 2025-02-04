@@ -28,20 +28,19 @@
     <section>
         <h2>Login</h2>
         <div th:if="${param.error}">
-            <p style="color: red;">Invalid username and password.</p>
+            <p style="color: red;">Falscher Nutzername oder Passwort!</p>
         </div>
-        <form action="/login-real" method="post">
+        <form action="/login" method="post">
             <div>
-                <label for="username">Username:</label>
+                <label for="username">Nutzername:</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div>
-                <label for="password">Password:</label>
+                <label for="password">Passwort:</label>
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit" class="submit-button">Login</button>
         </form>
-        <!--<p><a href="/register">Register</a></p>-->
     </section>
 </main>
 <footer>

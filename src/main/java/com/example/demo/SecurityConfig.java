@@ -32,7 +32,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/", "/contact", "/login-real", "/style.css",
+                        .requestMatchers("/", "/contact", "/login", "/style.css",
                         "/IRIS_logo.png", "/blog", "/medic_pic.jpg", "/polaris_closeup.jpg",
                         "/starlancer_logistik.jpg", "/reclaimer_salvage.png", "/sillouets_fps.jpg",
                         "/ships_multicrew.jpg", "/favicon.png", "/register", "/register.js", "/api/register").permitAll()
@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/Wiki").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form
-                        .loginPage("/login-real")
+                        .loginPage("/login")
                         .successHandler(successHandler()))
                 .logout(logout -> logout
                         .logoutUrl("/logout")
