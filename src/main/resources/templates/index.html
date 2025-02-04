@@ -36,6 +36,12 @@
             <div th:if="${isLoggedIn} and ${role.contains('ADMIN')}">
                 <a th:href="@{/wiki}" class="button">Wiki</a>
             </div>
+            <div>
+                <button id="theme-toggle">
+                    <span>🌞</span>
+                    <span>🌙</span>
+                </button>
+            </div>
         </div>
     </div>
 </header>
