@@ -107,7 +107,7 @@ public class AdminController {
         MarkdownConverter markdownConverter = new MarkdownConverter();
         content = markdownConverter.convertToHtml(content);
         wiki.setContent(content);
-        if(url.isEmpty())url = "/original_black@2x.png";
+        if(url.isEmpty())url = "/original_black_2x.png";
         wiki.setPicPath(url);
         wikiRepository.save(wiki);
         return new ModelAndView("redirect:/admin");
