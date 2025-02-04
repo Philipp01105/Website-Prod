@@ -74,7 +74,7 @@
     <section class="feature-grid">
         <div th:each="contact : ${contacts}" class="feature-card" th:onclick="'openModal(' + ${contact.id} + ')'">
             <div class="section-image">
-                <img th:src="@{/original_black@2x.png}" alt="Wiki Image">
+                <img th:src="@{/original_black_2x.png}" alt="Wiki Image">
             </div>
             <h3 th:text="${contact.name}"></h3>
             <p th:utext="${#strings.abbreviate(contact.content, 100)}"></p>
