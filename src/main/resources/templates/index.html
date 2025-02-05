@@ -6,6 +6,7 @@
     <title>I.R.I.S.</title>
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
     <link rel="stylesheet" href="/style.css">
+    <script th:src="@{/js/theme-switcher.js}"></script>
 </head>
 <body>
 <header>
@@ -35,6 +36,12 @@
             </div>
             <div th:if="${isLoggedIn} and ${role.contains('ADMIN')}">
                 <a th:href="@{/wiki}" class="button">Wiki</a>
+            </div>
+            <div>
+                <button id="theme-toggle">
+                    <span>🌞</span>
+                    <span>🌙</span>
+                </button>
             </div>
         </div>
     </div>
