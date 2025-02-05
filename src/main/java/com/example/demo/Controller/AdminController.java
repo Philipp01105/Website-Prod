@@ -97,7 +97,7 @@ public class AdminController {
         section.setContent(content);
         section.setTimestamp(LocalDateTime.now());
         blogRepository.save(section);
-        return new ModelAndView("redirect:/admin");
+        return new ModelAndView("redirect:/admin/");
     }
 
     @PostMapping("/add-wiki")
@@ -110,7 +110,7 @@ public class AdminController {
         if(url.isEmpty())url = "/original_black_2x.png";
         wiki.setPicPath(url);
         wikiRepository.save(wiki);
-        return new ModelAndView("redirect:/admin");
+        return new ModelAndView("redirect:/admin/");
     }
 
     @PostMapping("/manage-roles")
@@ -122,7 +122,7 @@ public class AdminController {
             user.setRole(role);
             userRepository.save(user);
         }
-        return new ModelAndView("redirect:/admin");
+        return new ModelAndView("redirect:/admin/");
     }
 
     @PostMapping("/reset-password")
@@ -134,6 +134,6 @@ public class AdminController {
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
         }
-        return new ModelAndView("redirect:/admin");
+        return new ModelAndView("redirect:/admin/");
     }
 }
