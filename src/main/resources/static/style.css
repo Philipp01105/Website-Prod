@@ -369,7 +369,7 @@ a:hover {
 .hero-section {
     text-align: center;
     padding: 4rem 2rem;
-    background-color: #f5f5f5;
+    background-color: var(--surface);
 }
 
 .hero-section h1 {
