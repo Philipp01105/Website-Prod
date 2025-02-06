@@ -53,11 +53,6 @@ public class MyController {
         return secureSiteGet(model, "register", null, null, null);
     }
 
-    /*@GetMapping("/error")
-    public ModelAndView error(Model model) {
-        return secureSiteGet(model, "error", null, null, null);
-    }*/
-
 /*---------------------------------Post Methods---------------------------------*/
 
     @PostMapping("/contact")

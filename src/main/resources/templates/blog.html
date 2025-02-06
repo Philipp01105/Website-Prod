@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <head th:replace="~{fragments/head :: head(title = 'I.R.I.S. Blog')}"></head>
+    <script th:src="@{/js/theme-switcher.js}" defer></script>
 </head>
 <body>
 <header>
@@ -31,7 +32,6 @@
             </div>
             <div>
                 <button id="theme-toggle" class="button">
-                    <span>🌞</span>
                     <span>🌙</span>
                 </button>
             </div>
