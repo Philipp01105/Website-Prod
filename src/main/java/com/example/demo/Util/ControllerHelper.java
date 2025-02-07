@@ -2,6 +2,7 @@ package com.example.demo.Util;
 
 import com.example.demo.Entities.Identifiable;
 import com.example.demo.Entities.Timestamped;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,8 +21,9 @@ public class ControllerHelper {
     }
 
     public static <T> ModelAndView secureSiteGet(
-            Model model,
-            String viewPath,
+
+            @org.jetbrains.annotations.NotNull  Model model,
+            @org.jetbrains.annotations.NotNull String viewPath,
             String entityListName,
             JpaRepository<T, Long> repository,
             Class<T> entityClass) {

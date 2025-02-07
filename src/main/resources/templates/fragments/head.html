@@ -2,6 +2,7 @@
     <meta charset="UTF-8">
 
     <!-- Meta Tags for indexing-->
+
     <meta name="description" content="I.R.I.S. - a Star Citizen Organization">
     <meta name="keywords" content="Star Citizen, I.R.I.S., Organization, Gaming, Space, Spaceship, Starship, Star, Citizen, sc, StarCitizen, Roberts Space Industries, RSI, FPS, salvage, mining, exploration, trading, bounty hunting, security, transport, roleplay, roleplaying, role-play, role">
     <meta name="author" content="I.R.I.S.">
@@ -9,13 +10,19 @@
 
     <meta property="og:title" content="I.R.I.S.">
     <meta property="og:description" content="Star citizen organization">
-    <meta property="og:image" content="https://iris-starcitizen.org/IRIS_logo.png">
-    <meta property="og:url" content="https://iris-starcitizen.org">
+    <meta property="og:image" content="https://iris-organization.org/IRIS_logo.png">
+    <meta property="og:url" content="https://iris-organization.org">
+
     <!-- Meta Tags for indexing-->
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${title} ?: 'I.R.I.S.'"></title>
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <script th:src="@{/js/theme-switcher.js}"></script>
     <link rel="stylesheet" href="/style.css">
-    <script th:src="@{/js/theme-applyer.js}"></script>
+    <script>
+        if(localStorage.getItem('theme') === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>

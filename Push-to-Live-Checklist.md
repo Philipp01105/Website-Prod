@@ -21,3 +21,6 @@
 - [ ] **SecurityConfig**: Are the necessary resources available to everyone?
 - [ ] **SecurityConfig**: Is the Register option only available to Admins?
 - [ ] **Code Review**: Code should be reviewed by at least one other developer.
+
+
+.\mvwn clean install -DskipTests
