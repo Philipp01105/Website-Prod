@@ -35,7 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/contact", "/login", "/style.css",
                         "/IRIS_logo.png", "/blog", "/medic_pic.jpg", "/polaris_closeup.jpg",
                         "/starlancer_logistik.jpg", "/reclaimer_salvage.png", "/sillouets_fps.jpg",
-                        "/ships_multicrew.jpg", "/favicon.png", "/js/theme-switcher.js", "/js/theme-applyer.js").permitAll()
+                        "/ships_multicrew.jpg", "/favicon.png", "/js/theme-switcher.js", "/js/theme-applyer.js", "/robots.txt", "sitemap.xml").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/Wiki", "/register", "/register.js", "/api/register").hasRole("ADMIN")
                         .anyRequest().authenticated())
