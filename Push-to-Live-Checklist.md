@@ -22,7 +22,5 @@
 - [ ] **SecurityConfig**: Is the Register option only available to Admins?
 - [ ] **Code Review**: Code should be reviewed by at least one other developer.
 
-  |\
-  \\/
 
-`./mvnw clean package -DskipTests` --> **Push to Live** 🚀
+.\mvwn clean install -DskipTests
