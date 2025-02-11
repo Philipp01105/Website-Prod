@@ -68,7 +68,7 @@ public class AdminController {
                 .toList();
 
         model.addAttribute("images", images);
-        return new ModelAndView("Admin-usages/add-wiki");
+        return secureSiteGet(model, "Admin-usages/add-wiki", null, null, null);
     }
 
     @GetMapping("/manage-roles")

@@ -1,44 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <head th:replace="~{fragments/head :: head(title = 'I.R.I.S. Blog')}"></head>
+    <th:block th:insert="~{fragments/head :: head(title = 'I.R.I.S. Blog', includeMetaForIndexing = true)}"></th:block>
 </head>
 <body>
 <header>
-    <div class="nav-container">
-        <div class="logo-title">
-            <a th:href="@{/}">
-                <img th:src="@{/IRIS_logo.png}" alt="Logo" class="logo">
-            </a>
-            <div class="header-text">
-                <p>I.R.I.S.</p>
-            </div>
-        </div>
-        <div class="nav-buttons">
-            <div th:if="${!isLoggedIn}">
-                <a th:href="@{/login-real}" class="button">Login</a>
-            </div>
-            <div th:if="${isLoggedIn} and ${role.contains('ADMIN')}">
-                <a th:href="@{/admin/}" class="button">Admin Panel</a>
-            </div>
-            <div th:if="${isLoggedIn}">
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="button">Logout</button>
-                </form>
-            </div>
-            <div th:if="${isLoggedIn} and ${role.contains('ADMIN')}">
-                <a th:href="@{/wiki}" class="button">Wiki</a>
-            </div>
-            <div>
-                <button id="theme-toggle" class="button">
-                    <span>🌙</span>
-                </button>
-            </div>
-        </div>
-    </div>
+    <th:block th:insert="~{fragments/header :: header(title = 'I.R.I.S. Blog')}"></th:block>
 </header>
 <main>
-    <section>
+    <section class="section">
         <h2>Willkommen auf unserem Blog</h2>
         <p>Hier steht alles, was in letzter Zeit passiert ist.</p>
     </section>
