@@ -31,18 +31,5 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
-.vscode/
-
-### openjdk ###
-openjdk-23.0.2_windows-x64_bin/
-
-### image zip and image folder ###
-*.zip
-logo_parts/
-
-### jdk folder ###
-jdk-23.0.2/
-
 ### certificate ###
 *.p12

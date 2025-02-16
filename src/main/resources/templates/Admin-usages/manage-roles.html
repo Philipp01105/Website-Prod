@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <head th:replace="~{fragments/head :: head(title = 'I.R.I.S. Manage User Roles')}"></head>
+    <th:block th:insert="~{fragments/head :: head(title = 'I.R.I.S. Manage User Roles', includeMetaForIndexing = false)}"></th:block>
 </head>
 <body>
 <header>
-    <h1>Manage User Roles</h1>
+    <th:block th:insert="~{fragments/header :: header(title = 'I.R.I.S. Manage User Roles')}"></th:block>
 </header>
 <main>
     <section>
@@ -19,7 +19,7 @@
                 <option value="ROLE_USER">User</option>
                 <option value="ROLE_ADMIN">Admin</option>
             </select>
-            <button type="submit">Update Role</button>
+            <button type="submit" class="submit-button">Update Role</button>
         </form>
     </section>
 </main>

@@ -1,0 +1,34 @@
+<th:block th:fragment="header(title)">
+    <div class="nav-container">
+        <a th:href="@{/}" class="logo-title">
+            <img th:src="@{/IRIS_logo.png}" alt="Logo" class="logo">
+            <div class="header-text">
+                <p th:text="${title} ?: 'I.R.I.S.'"></p>
+            </div>
+        </a>
+        <div class="nav-buttons">
+            <div th:if="${!isLoggedIn}">
+                <a th:href="@{/login-real}" class="button">Login</a>
+            </div>
+            <div th:if="${isLoggedIn} and ${role.contains('ADMIN')}">
+                <a th:href="@{/admin/}" class="button">Admin Panel</a>
+            </div>
+            <div th:if="${isLoggedIn}">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="button">Logout</button>
+                </form>
+            </div>
+            <div>
+                <a th:href="@{/blog}" class="button">Blog</a>
+            </div>
+            <div th:if="${isLoggedIn} and ${role.contains('ADMIN')}">
+                <a th:href="@{/wiki}" class="button">Wiki</a>
+            </div>
+            <div>
+                <button id="theme-toggle" class="button">
+                    <span>🌙</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</th:block>

@@ -1,33 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <head th:replace="~{fragments/head :: head(title = 'I.R.I.S. Reports')}"></head>
+    <th:block th:insert="~{fragments/head :: head(title = 'I.R.I.S. Report Logs', includeMetaForIndexing = false)}"></th:block>
 </head>
 <body>
 <header>
-    <div class="nav-container">
-        <div class="logo-title">
-            <a th:href="@{/admin/}">
-                <img th:src="@{/IRIS_logo.png}" alt="Logo" class="logo">
-            </a>
-            <div class="header-text">
-                <p>Report logs</p>
-            </div>
-        </div>
-        <div class="nav-buttons">
-            <div th:if="${!isLoggedIn}">
-                <a th:href="@{/login-real}" class="button">Login</a>
-            </div>
-            <div th:if="${isLoggedIn} and ${role != null} and ${role.contains('ADMIN')}">
-                <a th:href="@{/admin/}" class="button">Admin Panel</a>
-            </div>
-            <div th:if="${isLoggedIn}">
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="button">Logout</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    <th:block th:insert="~{fragments/header :: header(title = 'I.R.I.S. Report Logs')}"></th:block>
 </header>
 
 <main>

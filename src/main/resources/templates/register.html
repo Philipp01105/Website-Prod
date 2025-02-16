@@ -1,19 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <head th:replace="~{fragments/head :: head(title = 'I.R.I.S. Register')}"></head>
+    <th:block th:insert="~{fragments/head :: head(title = 'I.R.I.S. Register', includeMetaForIndexing = true)}"></th:block>
     <script th:src="@{/js/register.js}" defer></script>
 </head>
 <body>
 <header>
-    <div class="logo-title">
-        <a th:href="@{/}">
-            <img th:src="@{/IRIS_logo.png}" alt="Logo" class="logo">
-        </a>
-        <div class="header-text">
-            <p>Welcome to Our Website</p>
-        </div>
-    </div>
+    <th:block th:insert="~{fragments/header :: header(title = 'I.R.I.S. Register')}"></th:block>
 </header>
 <main>
     <section>

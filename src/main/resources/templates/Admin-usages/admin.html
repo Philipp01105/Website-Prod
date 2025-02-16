@@ -1,44 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <head th:replace="~{fragments/head :: head(title = 'I.R.I.S. Admin Panel')}"></head>
+    <th:block th:insert="~{fragments/head :: head(title = 'I.R.I.S. Admin Panel', includeMetaForIndexing = false)}"></th:block>
 </head>
 <body>
 <header>
-    <div class="nav-container">
-        <div class="logo-title">
-            <a th:href="@{/}">
-                <img th:src="@{/IRIS_logo.png}" alt="Logo" class="logo">
-            </a>
-            <div class="header-text">
-                <p>I.R.I.S.</p>
-            </div>
-        </div>
-        <div class="nav-buttons">
-            <div th:if="${!isLoggedIn}">
-                <a th:href="@{/login-real}" class="button">Login</a>
-            </div>
-            <div th:if="${isLoggedIn} and ${role.contains('ADMIN')}">
-                <a th:href="@{/admin/}" class="button">Admin Panel</a>
-            </div>
-            <div th:if="${isLoggedIn}">
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="button">Logout</button>
-                </form>
-            </div>
-            <div>
-                <a th:href="@{/blog}" class="button">Blog</a>
-            </div>
-            <div th:if="${isLoggedIn} and ${role.contains('ADMIN')}">
-                <a th:href="@{/wiki}" class="button">Wiki</a>
-            </div>
-            <div>
-                <button id="theme-toggle" class="button">
-                    <span>🌙</span>
-                </button>
-            </div>
-        </div>
-    </div>
+    <th:block th:insert="~{fragments/header :: header(title = 'I.R.I.S. Admin Panel')}"></th:block>
 </header>
 <main>
     <section class="tools-list">

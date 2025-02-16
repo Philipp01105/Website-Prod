@@ -1,24 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <head th:replace="~{fragments/head :: head(title = 'I.R.I.S. Login')}"></head>
+    <th:block th:insert="~{fragments/head :: head(title = 'I.R.I.S. Login', includeMetaForIndexing = true)}"></th:block>
 </head>
 <body>
 <header>
-    <div class="nav-container">
-        <div class="logo-title">
-            <a th:href="@{/}">
-                <img th:src="@{/IRIS_logo.png}" alt="Logo" class="logo">
-            </a>
-            <div class="header-text">
-                <p>I.R.I.S.</p>
-            </div>
-        </div>
-            <div>
-                <a th:href="@{/blog}" class="button">Blog</a>
-            </div>
-        </div>
-    </div>
+    <th:block th:insert="~{fragments/header :: header(title = 'I.R.I.S. Login')}"></th:block>
 </header>
 <main>
     <section>
