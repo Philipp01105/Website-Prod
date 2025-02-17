@@ -87,6 +87,55 @@ public class MyController {
                 .body(robotsTxt);
     }
 
+    @GetMapping(value = "/sitemap.xml", produces = MediaType.APPLICATION_XML_VALUE)
+    @ResponseBody
+    public ResponseEntity<String> getSitemapXml() {
+        String sitemapXml = """
+                <?xml version="1.0" encoding="UTF-8"?>
+                         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        
+                             <!-- Homepage -->
+                             <url>
+                                 <loc>https://iris-organization.org/</loc>
+                                 <lastmod>2024-10-01</lastmod>
+                                 <changefreq>weekly</changefreq>
+                                 <priority>1.0</priority>
+                             </url>
+        
+                             <!-- Blog -->
+                             <url>
+                                 <loc>https://iris-organization.org/blog</loc>
+                                 <lastmod>2024-09-15</lastmod>
+                                 <changefreq>weekly</changefreq>
+                                 <priority>0.8</priority>
+                             </url>
+        
+                             <!-- login -->
+                             <url>
+                                 <loc>https://iris-organization.org/login</loc>
+                                 <lastmod>2024-09-20</lastmod>
+                                 <changefreq>weekly</changefreq>
+                                 <priority>0.9</priority>
+                             </url>
+        
+                             <!-- Contact -->
+                             <url>
+                                 <loc>https://iris-organization.org/contact</loc>
+                                 <lastmod>2024-10-10</lastmod>
+                                 <changefreq>weekly</changefreq>
+                                 <priority>0.8</priority>
+                             </url>
+        
+                         </urlset>
+        """;
+
+        return ResponseEntity
+                .ok()
+                .header("Content-Type", MediaType.APPLICATION_XML_VALUE)
+                .header("Cache-Control", "public, max-age=86400")
+                .body(sitemapXml);
+    }
+
 /*---------------------------------Post Methods---------------------------------*/
 
     @PostMapping("/contact")
