@@ -1,8 +1,0 @@
-User-agent: *
-Allow: *
-Disallow: /wiki/
-Disallow: /register/
-Disallow: /error/
-Disallow: /admin/
-
-Sitemap: https://iris-organization.org/sitemap.xml
