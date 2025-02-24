@@ -32,12 +32,9 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/", "/contact", "/login", "/style.css",
-                        "/IRIS_logo.png", "/blog", "/medic_pic.jpg", "/polaris_closeup.jpg",
-                        "/starlancer_logistik.jpg", "/reclaimer_salvage.png", "/sillouets_fps.jpg",
-                        "/ships_multicrew.jpg", "/favicon.png", "/js/theme-switcher.js", "/robots.txt", "/sitemap.xml").permitAll()
+                        .requestMatchers("/", "/contact", "/login", "/style.css", "/blog", "/js/theme-switcher.js", "/robots.txt", "/sitemap.xml", "/Pictures/*").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/Wiki", "/register", "/register.js", "/api/register").hasRole("ADMIN")
+                        .requestMatchers("/Wiki", "/register", "/js/register.js", "/api/register").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")

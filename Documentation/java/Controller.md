@@ -5,6 +5,4 @@
 - Get & Post request handling for admin endpoints
 
 # UserController
-- Get & Post request handling for user endpoints
-
-``` dfgh ```
+- Get & Post request handling for account handling endpoints
